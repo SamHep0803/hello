@@ -23,7 +23,7 @@ func NewLandingPage(state *state.UIState) tview.Primitive {
 
 	page := tview.NewGrid().
 		SetRows(2, 0, 3).
-		SetColumns(30, 0, 30).
+		SetColumns(20, 0, 30).
 		SetBorders(true).
 		AddItem(newPrimitive("Footer"), 2, 0, 1, 3, 0, 0, false)
 
@@ -31,7 +31,12 @@ func NewLandingPage(state *state.UIState) tview.Primitive {
 
 	// Layout for screens narrower than 100 cells (menu and side bar are hidden).
 	page.AddItem(main, 1, 0, 1, 3, 0, 0, false).
-		AddItem(header, 0, 0, 1, 3, 0, 0, false)
+		AddItem(header, 0, 0, 1, 3, 0, 0, false).
+		AddItem(clockView, 0, 0, 1, 0, 0, 0, false)
+
+	// Layout < 50
+	page.AddItem(clockView, 0, 0, 1, 1, 0, 75, false).
+		AddItem(header, 0, 1, 1, 2, 0, 75, false)
 
 	// Layout for screens wider than 100 cells.
 	page.AddItem(menu, 1, 0, 1, 1, 0, 100, false).
