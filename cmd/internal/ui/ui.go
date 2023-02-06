@@ -8,6 +8,8 @@ import (
 
 func NewUI(state *state.UIState) tview.Primitive {
 	clockView := components.NewClockView(state.App)
+	tabView := components.NewTabView(state)
+	mainView := state.Content
 
 	newPrimitive := func(text string) tview.Primitive {
 		return tview.NewTextView().
@@ -16,7 +18,6 @@ func NewUI(state *state.UIState) tview.Primitive {
 	}
 
 	menu := newPrimitive("Menu")
-	// main := newPrimitive("Main content")
 	sideBar := newPrimitive("Side Bar")
 
 	page := tview.NewGrid().
@@ -25,25 +26,21 @@ func NewUI(state *state.UIState) tview.Primitive {
 		SetBorders(true).
 		AddItem(newPrimitive("Footer"), 2, 0, 1, 3, 0, 0, false)
 
-	header := newPrimitive("Header")
-
-	main := state.Tabs[state.CurrentTab].Contents
-
 	// Layout for screens narrower than 100 cells (menu and side bar are hidden).
-	page.AddItem(main, 1, 0, 1, 3, 0, 0, false).
-		AddItem(header, 0, 0, 1, 3, 0, 0, false).
+	page.AddItem(mainView, 1, 0, 1, 3, 0, 0, false).
+		AddItem(tabView, 0, 0, 1, 3, 0, 0, true).
 		AddItem(clockView, 0, 0, 1, 0, 0, 0, false)
 
 	// Layout < 50
 	page.AddItem(clockView, 0, 0, 1, 1, 0, 75, false).
-		AddItem(header, 0, 1, 1, 2, 0, 75, false)
+		AddItem(tabView, 0, 1, 1, 2, 0, 75, true)
 
 	// Layout for screens wider than 100 cells.
 	page.AddItem(menu, 1, 0, 1, 1, 0, 100, false).
-		AddItem(main, 1, 1, 1, 1, 0, 100, false).
+		AddItem(mainView, 1, 1, 1, 1, 0, 100, false).
 		AddItem(sideBar, 1, 2, 1, 1, 0, 100, false).
 		AddItem(clockView, 0, 0, 1, 1, 0, 100, false).
-		AddItem(header, 0, 1, 1, 2, 0, 100, false)
+		AddItem(tabView, 0, 1, 1, 2, 0, 100, true)
 
 	return page
 }

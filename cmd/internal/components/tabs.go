@@ -1,6 +1,7 @@
 package components
 
 import (
+	"fmt"
 	"strconv"
 
 	"github.com/gdamore/tcell/v2"
@@ -15,21 +16,23 @@ func NewTabView(state *state.UIState) *tview.TextView {
 		SetChangedFunc(func() {
 			state.App.Draw()
 		})
-	tabView.Highlight()
+	tabView.Highlight(strconv.Itoa(state.CurrentTab))
 
+	fmt.Fprintf(tabView, "[::b]TABS[-:-:-] |")
 	for index, tab := range state.Tabs {
-
+		fmt.Fprintf(tabView, ` ["%d"]%s[-][""] |`, index, tab.Title)
+		state.Content.AddPage(strconv.Itoa(index), tab.Contents, true, index == state.CurrentTab)
 	}
 
 	tabView.SetDoneFunc(func(key tcell.Key) {
-		currentSelection := tabView.GetHighlights()
-		index, _ := strconv.Atoi(currentSelection[0])
 		if key == tcell.KeyTAB {
-			index = (index + 1) % len(currentSelection)
+			state.CurrentTab = (state.CurrentTab + 1) % len(state.Tabs)
+			state.Content.SwitchToPage(strconv.Itoa(state.CurrentTab))
 		} else if key == tcell.KeyBacktab {
-			index = (index - 1 + len(currentSelection)) % len(currentSelection)
+			state.CurrentTab = (state.CurrentTab - 1 + len(state.Tabs)) % len(state.Tabs)
+			state.Content.SwitchToPage(strconv.Itoa(state.CurrentTab))
 		}
-		tabView.Highlight(strconv.Itoa(index)).ScrollToHighlight()
+		tabView.Highlight(strconv.Itoa(state.CurrentTab)).ScrollToHighlight()
 	})
 
 	return tabView

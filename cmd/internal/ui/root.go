@@ -1,6 +1,7 @@
 package ui
 
 import (
+	"github.com/gdamore/tcell/v2"
 	"github.com/samhep0803/hello/cmd/internal/state"
 )
 
@@ -9,10 +10,15 @@ func New() error {
 
 	state.GlobalUIState = uiState
 
-	// landingPage := pages.NewLandingPage(uiState)
-	// uiState.Pages.AddPage(pages.LANDING_PAGE, landingPage, true, true)
-
 	ui := NewUI(uiState)
+
+	uiState.App.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		switch event.Rune() {
+		case 'q':
+			uiState.App.Stop()
+		}
+		return event
+	})
 
 	return uiState.App.SetRoot(ui, true).Run()
 }

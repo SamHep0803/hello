@@ -13,6 +13,7 @@ type UIState struct {
 	App        *tview.Application
 	Tabs       []Tab
 	CurrentTab int
+	Content    *tview.Pages
 }
 
 func NewUIState() *UIState {
@@ -29,5 +30,6 @@ func NewUIState() *UIState {
 			{"Second", newPrimitive("Second Page")},
 		},
 		CurrentTab: 0,
+		Content:    tview.NewPages(),
 	}
 }
