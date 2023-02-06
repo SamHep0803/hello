@@ -2,7 +2,6 @@ package ui
 
 import (
 	"github.com/samhep0803/hello/cmd/internal/state"
-	"github.com/samhep0803/hello/cmd/internal/ui/pages"
 )
 
 func New() error {
@@ -10,8 +9,10 @@ func New() error {
 
 	state.GlobalUIState = uiState
 
-	landingPage := pages.NewLandingPage(uiState)
-	uiState.Pages.AddPage(pages.LANDING_PAGE, landingPage, true, true)
+	// landingPage := pages.NewLandingPage(uiState)
+	// uiState.Pages.AddPage(pages.LANDING_PAGE, landingPage, true, true)
 
-	return uiState.App.SetRoot(uiState.Pages, true).Run()
+	ui := NewUI(uiState)
+
+	return uiState.App.SetRoot(ui, true).Run()
 }
