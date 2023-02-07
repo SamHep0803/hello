@@ -35,7 +35,8 @@ func (c *clockView) update(app *tview.Application) {
 func NewClockView(app *tview.Application) *tview.TextView {
 	textView := tview.NewTextView()
 	textView.SetTextAlign(tview.AlignCenter).
-		SetDynamicColors(true)
+		SetDynamicColors(true).
+		SetBorder(true)
 
 	view := &clockView{
 		textView: textView,

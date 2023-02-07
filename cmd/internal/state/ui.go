@@ -1,6 +1,9 @@
 package state
 
-import "github.com/rivo/tview"
+import (
+	"github.com/rivo/tview"
+	"github.com/samhep0803/hello/cmd/internal/utils"
+)
 
 var GlobalUIState *UIState
 
@@ -17,17 +20,11 @@ type UIState struct {
 }
 
 func NewUIState() *UIState {
-	newPrimitive := func(text string) tview.Primitive {
-		return tview.NewTextView().
-			SetTextAlign(tview.AlignCenter).
-			SetText(text)
-	}
-
 	return &UIState{
 		App: tview.NewApplication(),
 		Tabs: []Tab{
-			{"Main", newPrimitive("Main Page")},
-			{"Second", newPrimitive("Second Page")},
+			{"Main", utils.NewPrimitive("Main Page")},
+			{"Second", utils.NewPrimitive("Second Page")},
 		},
 		CurrentTab: 0,
 		Content:    tview.NewPages(),

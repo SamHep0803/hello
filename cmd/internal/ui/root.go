@@ -20,5 +20,7 @@ func New() error {
 		return event
 	})
 
+	uiState.App.EnableMouse(true)
+
 	return uiState.App.SetRoot(ui, true).Run()
 }

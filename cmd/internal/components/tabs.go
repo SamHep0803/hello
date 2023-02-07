@@ -35,5 +35,11 @@ func NewTabView(state *state.UIState) *tview.TextView {
 		tabView.Highlight(strconv.Itoa(state.CurrentTab)).ScrollToHighlight()
 	})
 
+	tabView.SetHighlightedFunc(func(added, removed, remaining []string) {
+		highlighted, _ := strconv.Atoi(added[0])
+		state.CurrentTab = highlighted
+		state.Content.SwitchToPage(added[0])
+	})
+
 	return tabView
 }

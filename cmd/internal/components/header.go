@@ -1,0 +1,36 @@
+package components
+
+import (
+	"github.com/gdamore/tcell/v2"
+	"github.com/rivo/tview"
+	"github.com/samhep0803/hello/cmd/internal/state"
+)
+
+func NewHeaderView(state *state.UIState) *tview.Flex {
+	newPrimitive := func(text string) tview.Primitive {
+		return tview.NewTextView().
+			SetTextAlign(tview.AlignRight).
+			SetText(text)
+	}
+
+	headerView := tview.NewFlex()
+	headerView.SetBorder(true)
+
+	tabView := NewTabView(state)
+	statusView := newPrimitive("Header")
+
+	headerView.AddItem(tabView, 0, 1, true)
+	headerView.AddItem(statusView, 0, 1, false)
+
+	headerView.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		switch event.Rune() {
+		case 'l':
+			state.App.SetFocus(statusView)
+		case 'h':
+			state.App.SetFocus(tabView)
+		}
+		return event
+	})
+
+	return headerView
+}
