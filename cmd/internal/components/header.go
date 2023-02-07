@@ -1,7 +1,6 @@
 package components
 
 import (
-	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
 	"github.com/samhep0803/hello/cmd/internal/state"
 )
@@ -21,16 +20,6 @@ func NewHeaderView(state *state.UIState) *tview.Flex {
 
 	headerView.AddItem(tabView, 0, 1, true)
 	headerView.AddItem(statusView, 0, 1, false)
-
-	headerView.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-		switch event.Rune() {
-		case 'l':
-			state.App.SetFocus(statusView)
-		case 'h':
-			state.App.SetFocus(tabView)
-		}
-		return event
-	})
 
 	return headerView
 }
