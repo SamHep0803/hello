@@ -2,7 +2,7 @@ package components
 
 import (
 	"github.com/rivo/tview"
-	"github.com/samhep0803/hello/cmd/internal/state"
+	"github.com/samhep0803/hello/internal/state"
 )
 
 func NewHeaderView(state *state.UIState) *tview.Flex {

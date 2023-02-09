@@ -2,9 +2,9 @@ package ui
 
 import (
 	"github.com/rivo/tview"
-	"github.com/samhep0803/hello/cmd/internal/components"
-	"github.com/samhep0803/hello/cmd/internal/state"
-	"github.com/samhep0803/hello/cmd/internal/utils"
+	"github.com/samhep0803/hello/internal/components"
+	"github.com/samhep0803/hello/internal/state"
+	"github.com/samhep0803/hello/internal/utils"
 )
 
 func NewUI(state *state.UIState) tview.Primitive {

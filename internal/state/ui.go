@@ -2,7 +2,7 @@ package state
 
 import (
 	"github.com/rivo/tview"
-	"github.com/samhep0803/hello/cmd/internal/utils"
+	"github.com/samhep0803/hello/internal/utils"
 )
 
 var GlobalUIState *UIState

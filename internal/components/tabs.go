@@ -6,7 +6,7 @@ import (
 
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
-	"github.com/samhep0803/hello/cmd/internal/state"
+	"github.com/samhep0803/hello/internal/state"
 )
 
 func NewTabView(state *state.UIState) *tview.TextView {

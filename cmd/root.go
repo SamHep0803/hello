@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/samhep0803/hello/cmd/internal/ui"
+	"github.com/samhep0803/hello/internal/ui"
 	"github.com/spf13/cobra"
 )
 

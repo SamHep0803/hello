@@ -2,7 +2,7 @@ package ui
 
 import (
 	"github.com/gdamore/tcell/v2"
-	"github.com/samhep0803/hello/cmd/internal/state"
+	"github.com/samhep0803/hello/internal/state"
 )
 
 func New() error {
