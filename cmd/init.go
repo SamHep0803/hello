@@ -22,7 +22,7 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		githubToken, err := creds.GetCreds()
 		if err == nil {
-			fmt.Printf("Already Initialized!\nGitHub Token: %s", githubToken)
+			fmt.Printf("Already Initialized!\nGitHub Token: %s\n", githubToken)
 		}
 		if err != nil {
 			if errors.Is(err, keyring.ErrNotFound) {
@@ -34,7 +34,6 @@ to quickly create a Cobra application.`,
 				}
 			}
 		}
-
 	},
 }
 
