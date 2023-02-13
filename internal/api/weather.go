@@ -2,12 +2,8 @@ package api
 
 import "net/http"
 
-const (
-	apiUrl = ""
-)
-
-func GetTemperature(token string) {
-	req, err := http.NewRequest("GET", apiUrl+"/notifications", nil)
+func GetTemperature(token string) (int, error) {
+	req, err := http.NewRequest("GET", weatherUrl+"/notifications", nil)
 	if err != nil {
 		return 0, err
 	}

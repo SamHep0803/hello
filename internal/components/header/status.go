@@ -14,7 +14,8 @@ func NewStatusView(state *state.UIState) *tview.TextView {
 
 	statusView.SetTextAlign(tview.AlignRight)
 
-	githubToken, err := creds.GetGithubToken()
+	tokens, err := creds.GetCreds()
+	githubToken := tokens["github"]
 	if err != nil {
 		return nil
 	}
