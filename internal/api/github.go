@@ -23,3 +23,17 @@ func GetGithubNotifications(token string) (int, error) {
 
 	return len(results), nil
 }
+
+func GetGithubUsername(token string) (string, error) {
+	req, err := http.NewRequest("GET", apiUrl+"/user", nil)
+	if err != nil {
+		return "", err
+	}
+
+	results, err := SendRequest(client, req, token)
+	if err != nil {
+		return "", err
+	}
+
+	return results["login"], nil
+}

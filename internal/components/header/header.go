@@ -1,4 +1,4 @@
-package components
+package header
 
 import (
 	"github.com/rivo/tview"
@@ -6,17 +6,11 @@ import (
 )
 
 func NewHeaderView(state *state.UIState) *tview.Flex {
-	newPrimitive := func(text string) tview.Primitive {
-		return tview.NewTextView().
-			SetTextAlign(tview.AlignRight).
-			SetText(text)
-	}
-
 	headerView := tview.NewFlex()
 	headerView.SetBorder(true)
 
 	tabView := NewTabView(state)
-	statusView := newPrimitive("Header")
+	statusView := NewStatusView(state)
 
 	headerView.AddItem(tabView, 0, 1, true)
 	headerView.AddItem(statusView, 0, 1, false)

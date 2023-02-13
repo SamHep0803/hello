@@ -20,21 +20,45 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		githubToken, err := creds.GetCreds()
-		if err == nil {
-			fmt.Printf("Already Initialized!\nGitHub Token: %s\n", githubToken)
-		}
-		if err != nil {
-			if errors.Is(err, keyring.ErrNotFound) {
-				fmt.Print("Enter GitHub Token: ")
-				githubToken, _ := terminal.ReadPassword(0)
-				err := creds.SetCreds("github", string(githubToken))
-				if err != nil {
-					fmt.Printf("failed to set github token: %s", err)
-				}
+		checkGithubExists()
+		checkWeatherExists()
+	},
+}
+
+func checkGithubExists() {
+	_, err := creds.GetGithubToken()
+	if err == nil {
+		fmt.Printf("GitHub Already Initialized!")
+	}
+
+	if err != nil {
+		if errors.Is(err, keyring.ErrNotFound) {
+			fmt.Print("Enter GitHub Token: ")
+			githubToken, _ := terminal.ReadPassword(0)
+			err := creds.SetCreds("github", string(githubToken))
+			if err != nil {
+				fmt.Printf("failed to set github token: %s", err)
 			}
 		}
-	},
+	}
+}
+
+func checkWeatherExists() {
+	_, err := creds.GetWeatherToken()
+	if err == nil {
+		fmt.Printf("Weather Already Initialized!")
+	}
+
+	if err != nil {
+		if errors.Is(err, keyring.ErrNotFound) {
+			fmt.Print("Enter OpenWeatherAPI Token: ")
+			weatherToken, _ := terminal.ReadPassword(0)
+			err := creds.SetCreds("weather", string(weatherToken))
+			if err != nil {
+				fmt.Printf("failed to set weather token: %s", err)
+			}
+		}
+	}
 }
 
 func init() {
