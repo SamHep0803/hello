@@ -91,7 +91,8 @@ func initConfig() {
 		viper.SetConfigName("hello")
 
 		// populate config
-		viper.SetDefault("weather.cityId", "")
+		viper.SetDefault("weather.city", "")
+		viper.SetDefault("weather.units", "Metric")
 
 		viper.SafeWriteConfig()
 	}
@@ -103,8 +104,6 @@ func initConfig() {
 }
 
 func init() {
-	cobra.OnInitialize(initConfig)
-
 	initCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/config/hello/hello.yaml)")
 
 	rootCmd.AddCommand(initCmd)

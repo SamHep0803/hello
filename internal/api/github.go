@@ -17,7 +17,9 @@ func GetGithubNotifications(token string) (int, error) {
 		return 0, err
 	}
 
-	return len(results), nil
+	m := results.([]map[string]interface{})
+
+	return len(m), nil
 }
 
 func GetGithubUsername(token string) (string, error) {
@@ -31,5 +33,7 @@ func GetGithubUsername(token string) (string, error) {
 		return "", err
 	}
 
-	return results["login"], nil
+	m := results.(map[string]interface{})
+
+	return m["login"].(string), nil
 }

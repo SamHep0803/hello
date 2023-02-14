@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func SendRequest(client *http.Client, req *http.Request, token string) (map[string]string, error) {
+func SendRequest(client *http.Client, req *http.Request, token string) (interface{}, error) {
 	req.Header.Add("Accept", "application/json")
 	if token != "" {
 		req.Header.Add("Authorization", "Token "+token)
@@ -23,7 +23,7 @@ func SendRequest(client *http.Client, req *http.Request, token string) (map[stri
 		return nil, err
 	}
 
-	m := map[string]string{}
+	var m interface{}
 	json.Unmarshal(body, &m)
 
 	return m, nil
