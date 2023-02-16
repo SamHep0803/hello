@@ -3,12 +3,19 @@ package ui
 import (
 	"github.com/gdamore/tcell/v2"
 	"github.com/samhep0803/hello/internal/state"
+	"github.com/samhep0803/hello/internal/ui/pages"
+	"github.com/samhep0803/hello/internal/utils"
 )
 
 func New() error {
 	uiState := state.NewUIState()
 
 	state.GlobalUIState = uiState
+
+	uiState.Pages = []state.Page{
+		{Title: "Dashboard", Contents: pages.NewDashboardPage(uiState)},
+		{Title: "Second", Contents: utils.NewPrimitive("Second Page")},
+	}
 
 	ui := NewUI(uiState)
 

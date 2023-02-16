@@ -19,17 +19,17 @@ func NewTabView(state *state.UIState) *tview.TextView {
 	tabView.Highlight(strconv.Itoa(state.CurrentTab))
 
 	fmt.Fprintf(tabView, "[::b]TABS[-:-:-] |")
-	for index, tab := range state.Tabs {
+	for index, tab := range state.Pages {
 		fmt.Fprintf(tabView, ` ["%d"]%s[-][""] |`, index, tab.Title)
 		state.Content.AddPage(strconv.Itoa(index), tab.Contents, true, index == state.CurrentTab)
 	}
 
 	tabView.SetDoneFunc(func(key tcell.Key) {
 		if key == tcell.KeyTAB {
-			state.CurrentTab = (state.CurrentTab + 1) % len(state.Tabs)
+			state.CurrentTab = (state.CurrentTab + 1) % len(state.Pages)
 			state.Content.SwitchToPage(strconv.Itoa(state.CurrentTab))
 		} else if key == tcell.KeyBacktab {
-			state.CurrentTab = (state.CurrentTab - 1 + len(state.Tabs)) % len(state.Tabs)
+			state.CurrentTab = (state.CurrentTab - 1 + len(state.Pages)) % len(state.Pages)
 			state.Content.SwitchToPage(strconv.Itoa(state.CurrentTab))
 		}
 		tabView.Highlight(strconv.Itoa(state.CurrentTab)).ScrollToHighlight()

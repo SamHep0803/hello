@@ -1,17 +1,14 @@
 package utils
 
 import (
-	"fmt"
-
 	"github.com/rivo/tview"
 )
 
 func NewPrimitive(text string) *tview.TextView {
 	newPrimitive := tview.NewTextView()
 	newPrimitive.SetTextAlign(tview.AlignCenter).
-		SetBorder(true)
-
-	fmt.Fprintf(newPrimitive, "%s", text)
+		SetBorder(true).
+		SetTitle(text)
 
 	return newPrimitive
 }

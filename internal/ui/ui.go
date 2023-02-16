@@ -13,25 +13,25 @@ func NewUI(state *state.UIState) tview.Primitive {
 	headerView := header.NewHeaderView(state)
 	mainView := state.Content
 
-	page := tview.NewGrid().
+	ui := tview.NewGrid().
 		SetRows(4, 0, 3).
 		SetColumns(20, 0, 30).
 		// SetBorders(true).
 		AddItem(utils.NewPrimitive("Footer"), 2, 0, 1, 3, 0, 0, false)
 
 	// Layout for screens narrower than 100 cells (menu and side bar are hidden).
-	page.AddItem(mainView, 1, 0, 1, 3, 0, 0, false).
+	ui.AddItem(mainView, 1, 0, 1, 3, 0, 0, false).
 		AddItem(headerView, 0, 0, 1, 3, 0, 0, true).
 		AddItem(clockView, 0, 0, 1, 0, 0, 0, false)
 
 	// Layout < 50
-	page.AddItem(clockView, 0, 0, 1, 1, 0, 75, false).
+	ui.AddItem(clockView, 0, 0, 1, 1, 0, 75, false).
 		AddItem(headerView, 0, 1, 1, 2, 0, 75, true)
 
 	// Layout for screens wider than 100 cells.
-	page.AddItem(mainView, 1, 0, 1, 3, 0, 100, false).
+	ui.AddItem(mainView, 1, 0, 1, 3, 0, 100, false).
 		AddItem(clockView, 0, 0, 1, 1, 0, 100, false).
 		AddItem(headerView, 0, 1, 1, 2, 0, 100, true)
 
-	return page
+	return ui
 }
