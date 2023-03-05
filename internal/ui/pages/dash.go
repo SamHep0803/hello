@@ -14,7 +14,7 @@ func NewDashboardPage(state *state.UIState) tview.Primitive {
 	// weather view
 	weatherView := components.NewWeatherComponent()
 
-	dash.AddItem(weatherView, 30, 1, false)
+	dash.AddItem(weatherView, 40, 1, false)
 
 	return dash
 }

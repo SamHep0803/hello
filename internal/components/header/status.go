@@ -30,19 +30,14 @@ func NewStatusView(state *state.UIState) *tview.TextView {
 		return nil
 	}
 
-	coords, err := api.GetCoordinatesByCity(viper.GetString("weather.city"), weatherToken)
-	if err != nil {
-		return nil
-	}
-	lat := coords["lat"]
-	lon := coords["lon"]
+	city := viper.GetString("weather.city")
 
-	temp, _ := api.GetTemperature(lon, lat, weatherToken)
+	temp, _ := api.GetTemperature(city, weatherToken)
 
 	go func() {
 		for {
 			time.Sleep(refreshInterval)
-			t, _ := api.GetTemperature(lon, lat, weatherToken)
+			t, _ := api.GetTemperature(city, weatherToken)
 			temp = t
 		}
 	}()
